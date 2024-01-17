@@ -1,5 +1,16 @@
-- name: wakatime-sync
-  # You may pin to the exact commit or the version.
-  # uses: superman66/wakatime-sync@5233d5d3c9903b586526590dade9fafc18d8249f
-  uses: superman66/wakatime-sync@v1.0.0
-          
+name: Update gist with WakaTime summary
+on:
+  schedule:
+    - cron: '40 1 * * *'
+jobs:
+  update-gist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Update gist
+        uses: Dumail/wakatime-sync@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID}}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          SCU_KEY: ${{ secrets.SCU_KEY }}
